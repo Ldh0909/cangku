@@ -1,0 +1,256 @@
+台阶递归
+#include<stdio.h>
+int  fun(int n)
+{	
+	if(n==0) return 1;
+	if(n==1) return 1;
+	if(n==2) return 2;
+	return fun(n-1)+fun(n-2);
+
+
+}
+int main()
+{
+	int n,result;
+	printf("输入台阶数；",n);
+	scanf("%d",&n);
+	result=fun(n);
+	printf("%d",result);
+	return 0;
+} 
+
+
+台阶递推
+#include<stdio.h>
+int main(){
+	int n;
+	int a[51];
+	printf("输入台阶数；\n",n);
+	scanf("%d",&n);
+	a[1]=0;
+	a[2]=1;
+	a[3]=2;
+	for(int i=4;i<=n;i++){
+	
+		a[i]=a[i-1]+a[i-2]+a[i-3]; 
+} 
+	printf("%d\n",a[n]);
+	return 0;
+ } 
+
+
+阶乘递归
+#include<stdio.h>
+long jiecheng(long n);
+
+long jiecheng(long n){
+	if(n==1){
+		return 1;
+	}
+	else{
+		return jiecheng(n-1)*n;
+	}
+}
+int main()
+{
+	int n;
+	printf("输入n；",n);
+	scanf("%d",&n);
+	printf("%d\n",jiecheng(n));
+}
+
+
+
+阶乘递推
+#include<stdio.h>
+int main()
+{
+	int n,i,num=1;
+	printf("输入n；\n",n);
+	scanf("%d",&n);
+	if(n==0||n==1) {
+		return 1;
+	} 
+	else for(i=1;i<=n;i++)
+	{
+		num=num*i;
+	}
+	printf("%d",num);
+	return 0;
+}
+
+
+斐波那契递归
+#include<stdio.h>
+int fbnq(int n)
+{
+	if(n<=1)
+		return n;
+		else
+		
+	return fbnq(n-1)+fbnq(n-2);
+}
+
+int main()
+{
+	int n,num;
+	printf("输入n；\n",n);
+	scanf("%d",&n);
+	 num=fbnq(n);
+	printf("%d \n",num);
+	return 0;
+}
+
+
+
+斐波那契递推
+#include<stdio.h>
+int main()
+{
+	int n,i,fbnq[50];
+	printf("输入n:\n",n);
+	scanf("%d",&n);
+	fbnq[0]=0;
+	fbnq[1]=1;
+	for(i=2;i<=n;i++)
+	{
+		fbnq[i]=fbnq[i-1]+fbnq[i-2];
+	}
+	printf("%d\n",fbnq[n]);
+	return 0;
+}
+
+
+
+
+回文字符串递归
+#include <stdio.h>
+#include <string.h>
+#include <string.h>
+int main(){
+	char s[100]; 
+	int i, j, n;
+	printf("输入字符串：");
+	gets(s);
+	n=strlen(s);
+	for(i=0,j=n-1;i<j;i++,j--)
+	if(s[i]!=s[j]) break;
+	if(i>=j)
+	printf("%s is a palindrome\n",s);
+	else
+	printf("%s is not a palindrome\n",s);
+}
+
+
+
+回文字符串递推
+#include <stdio.h>
+#include <string.h>
+ 
+void huiwen(char str[])
+ {
+      int i,len;
+     bool flag = true;
+    len=strlen(str);
+     for(i=0;i<len/2;i++)
+    {
+         if(str[i]!=str[len-i-1])
+       {
+           flag=false;
+           break;
+       }
+    }
+    if(flag == false)
+         printf("%s is not a palindrome\n",str);
+     else
+        printf("%s is a palindrome\n",str);
+ }
+int main()
+ {   
+   char str[100] = {0};     
+    printf("输入字符串：");
+    scanf("%s", str);      
+   huiwen(str);
+    getchar();
+}
+
+
+
+汉诺塔
+#include<iostream>
+using namespace std;
+void move(char a,char b,char c,int n);
+int main()
+{
+    int n;
+    char a='A',b='B',c='C';      
+    cout<<"汉诺塔有多少层：";
+    cin>>n;  
+    move(a,b,c,n);
+    return 0; 
+}
+void move(char a,char b,char c,int n) 
+{   
+  if(n==1){ 
+    cout<<a<<"到"<<c<<endl;
+  } 
+  if(n>=2){ 
+    move(a,c,b,n-1);
+    cout<<a<<"到"<<c<<endl;
+    move(b,a,c,n-1);
+  } 
+}
+
+
+
+
+加法分解
+#include<iostream>
+using namespace std;
+int sum = 0;
+void dfs1(int n,int count,int*p)
+{
+ if(n==0){ 
+  cout<<sum<<"=";
+  for(int i=0;i<count;i++)
+   if(i==count-1)
+    cout<<p[i]<<endl;
+   else
+    cout<<p[i]<<"+";
+  return;
+ }
+ for(int i=1;i<=n;i++){
+  p[count]=i;
+  dfs1(n-i,count+1,p);
+ }
+ return;
+}
+void dfs2(int n,int count,int*p)
+{
+ if(n==0){ 
+  cout<<sum<<"=";
+  for(int i=0;i<count;i++)
+   if(i==count-1)
+    cout<<p[i]<<endl;
+   else
+    cout<<p[i]<<"+";
+  return;
+}
+ int k = count>0 ? p[count-1] : 1; 
+ for(int i=k;i<=n;i++){
+  p[count] = i;
+  dfs2(n-i,count+1,p);
+ }
+}
+int main()
+{
+ int n,m;
+ cin>>n>>m;
+ sum = n;
+ int* p = new int[n];
+ if(m==1)
+  dfs1(n,0,p);
+ else if(m==2)
+  dfs2(n,0,p);
+ return 0;
+}
